@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <title>Checkout example for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+
+  <body class="bg-light">
+
+    <div class="container">
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>PIX</h2>
+        <p class="lead">Exercício para envio e listagem de PIX.</p>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Seus PIX</span>
+          </h4>
+          <ul id="lista" class="list-group mb-3">
+
+            <li id="litotal" class="list-group-item d-flex justify-content-between">
+              <span>Total (BRL) </span>
+              <strong><p id="total">1000</strong>
+            </li>
+
+          </ul>
+
+        </div>
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Informações</h4>
+          <form id="form">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="chave">Chave</label>
+                <input type="text" class="form-control" id="chave" placeholder="" value="" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="valor">Valor</label>
+                <input type="text" class="form-control" id="valor" placeholder="" value="" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="data">Data</label>
+                <input type="date" class="form-control" id="data" placeholder="" value="" required>
+              </div>              
+            </div>
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <label for="banco">Banco</label>
+                <select class="custom-select d-block w-100" id="banco" required>
+                  
+                </select>
+              </div>
+            <hr class="mb-4">
+
+            <div class="d-block my-3">
+              <div class="custom-control custom-radio">
+                <input id="cpf" value="cpf" name="tipo" type="radio" class="custom-control-input" checked required>
+                <label class="custom-control-label" for="cpf">CPF/CNPJ</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="email" value="email" name="tipo" type="radio" class="custom-control-input" required>
+                <label class="custom-control-label" for="email">Email</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="celular" value="celular" name="tipo" type="radio" class="custom-control-input" required>
+                <label class="custom-control-label" for="celular">Celular</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="chavealeatoria" value="chavealeatoria" name="tipo" type="radio" class="custom-control-input" required>
+                <label class="custom-control-label" for="chavealeatoria">Chave aleatória</label>
+              </div>
+            </div>
+           
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Enviar PIX</button>
+          </form>
+        </div>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2022 - Lucas Duarte Almeida</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Próximo exercício</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="01-pix.js"></script>
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>
+  </body>
+</html>
+
