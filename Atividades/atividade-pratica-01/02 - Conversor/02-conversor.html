@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <title>Conversor</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="../static/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+  <div class="container">
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="https://ufop.br/sites/default/files/site_logo_ufop_txtwte_0.png" alt="">
+      <h2>Conversor de moedas</h2>
+      <p class="lead">Exercício para consulta e conversão de valores.</p>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Informações</h4>
+        <form id="form">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="valor1">Valor da moeda base</label>
+              <input type="text" class="form-control" id="valor1" placeholder="" value="" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="valor2">Valor da moeda alvo</label>
+              <input type="text" class="form-control" id="valor2" placeholder="" value="">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="data">Data</label>
+              <input type="date" class="form-control" id="data" placeholder="" value="" required>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="moeda1">Moeda 1</label>
+                <select class="custom-select d-block w-100" id="moeda1" required>
+
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="moeda2">Moeda 2</label>
+                <select class="custom-select d-block w-100" id="moeda2" required>
+
+                </select>
+              </div>
+            </div>
+            <hr class="mb-4">
+
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Calcular</button>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2022 - Lucas Duarte Almeida</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="../01 - Controle de PIX/01-pix.html">Exercício anterior</a></li>
+    </ul>
+  </footer>
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="02-conversor.js"></script>
+
+</body>
+
+</html>
