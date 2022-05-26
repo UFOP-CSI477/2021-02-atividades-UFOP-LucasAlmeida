@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bar.views import index
+from bar.views import ComandaDetailView, index, ComandaListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
+    path('comandas/', ComandaListView.as_view(), name='comandas'),
+    path('comandas/<int:pk>', ComandaDetailView.as_view(), name='comandas_detail'),
 ]

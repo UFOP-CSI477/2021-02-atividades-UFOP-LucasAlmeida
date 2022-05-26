@@ -1,5 +1,6 @@
 from pyexpat import model
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -12,21 +13,64 @@ STATUS_COMANDA_CHOICES = [
 class Mesa(models.Model):
     nome = models.TextField(max_length=20)
 
+    def __str__(self) -> str:
+        return self.nome
 
 class Funcionario(models.Model):
     nome = models.TextField(max_length=56)
+
+    def __str__(self) -> str:
+        return self.nome
 
 class Item(models.Model):
     nome = models.TextField(max_length=256)
     preco = models.IntegerField()
 
+    def __str__(self) -> str:
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = "Itens"
 
 class Comanda(models.Model):
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
-    itens = models.ManyToManyField(Item, verbose_name="Itens na comanda")
-    total = models.IntegerField()
+    itens = models.ManyToManyField(Item, through='ComandaItens', verbose_name="Itens na comanda")
+    total = models.IntegerField(blank=True, null=True)
     status = models.CharField(choices=STATUS_COMANDA_CHOICES, max_length=20)
+
+    def __str__(self) -> str:
+        return "Comanda da mesa " + self.mesa.nome
+
+    def save(self, *args, **kwargs):
+        if not self.status:
+            self.status = "Aberta"
+        print("Saved")
+        super().save(*args, **kwargs)
+
+    def fecharComanda(self):
+        queryset = self.itens.all().filter(comanda=self)
+        print(queryset)
+        sum_valor = sum([item.preco for item in queryset])
+        print(sum_valor)
+        self.total = sum_valor
+        self.save(update_fields=["total"])
+
+    def pagarComanda(self):
+        self.status = "Paga"
+        self.save()
+        
+class ComandaItens(models.Model):
+    comanda = models.ForeignKey(Comanda, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantidade = models.IntegerField()
+
+    def __str__(self) -> str:
+        return self.item.nome
+
+    class Meta:
+        verbose_name_plural = "Comanda Itens"
+
 
 class Bar(models.Model):
     comandas = models.ManyToManyField(Comanda, verbose_name="Comandas")
