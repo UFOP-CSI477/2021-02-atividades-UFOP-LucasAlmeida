@@ -37,7 +37,7 @@ class Comanda(models.Model):
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
     itens = models.ManyToManyField(Item, through='ComandaItens', verbose_name="Itens na comanda")
     total = models.IntegerField(blank=True, null=True)
-    status = models.CharField(choices=STATUS_COMANDA_CHOICES, max_length=20)
+    status = models.CharField(choices=STATUS_COMANDA_CHOICES, max_length=20, blank=True, null=True)
 
     def __str__(self) -> str:
         return "Comanda da mesa " + self.mesa.nome
@@ -45,13 +45,12 @@ class Comanda(models.Model):
     def save(self, *args, **kwargs):
         if not self.status:
             self.status = "Aberta"
-        print("Saved")
         super().save(*args, **kwargs)
 
     def fecharComanda(self):
-        queryset = self.itens.all().filter(comanda=self)
+        queryset = ComandaItens.objects.filter(comanda=self)
         print(queryset)
-        sum_valor = sum([item.preco for item in queryset])
+        sum_valor = sum([item.item.preco * item.quantidade for item in queryset])
         print(sum_valor)
         self.total = sum_valor
         self.save(update_fields=["total"])
@@ -59,11 +58,15 @@ class Comanda(models.Model):
     def pagarComanda(self):
         self.status = "Paga"
         self.save()
-        
+    
 class ComandaItens(models.Model):
     comanda = models.ForeignKey(Comanda, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantidade = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.comanda.fecharComanda()
 
     def __str__(self) -> str:
         return self.item.nome

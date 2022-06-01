@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from bar.models import Comanda
+from bar.models import Comanda, ComandaItens
 # Create your views here.
 
 def index(request):
@@ -18,7 +18,21 @@ class ComandaListView(generic.ListView):
 
 class ComandaDetailView(generic.DetailView):
     model = Comanda
+    
+    def get_context_data(self, **kwargs):
+        comanda = get_object_or_404(Comanda, pk=self.kwargs['pk'])
+        comanda_itens = ComandaItens.objects.all().filter(comanda=comanda)
+        context = super(ComandaDetailView, self).get_context_data(**kwargs)
+        context['comanda'] = comanda
+        context['comanda_itens'] = comanda_itens
+        return context
 
-    def comanda_detail_view(request, primary_key):
-        comanda = get_object_or_404(Comanda, pk=primary_key)
-        return render(request, "../templates/bar/comanda_detail.html", context={'comanda': comanda})
+
+class ComandaPagarView(generic.DetailView):
+    model = Comanda
+
+    def get(self, request, pk):
+        comanda = get_object_or_404(Comanda, pk=self.kwargs['pk'])
+        comanda.pagarComanda()
+        return render(request, 'index.html')
+        

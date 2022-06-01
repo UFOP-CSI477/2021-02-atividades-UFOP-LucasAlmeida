@@ -15,6 +15,7 @@ class ComandaItensAdmin(admin.ModelAdmin):
 class ComandaAdmin(admin.ModelAdmin):
     list_display = ("mesa", "status")
     list_filter = ('status',)
+    readonly_fields = ('status', 'total')
 admin.site.register(Comanda, ComandaAdmin)
 admin.site.register(Item)
 admin.site.register(ComandaItens, ComandaItensAdmin)
