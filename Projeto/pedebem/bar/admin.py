@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import redirect
 from bar.models import Bar, Comanda, ComandaItens, Mesa, Item, Funcionario
 # Register your models here.
 admin.site.site_header = "Administração do Pede Bem"
@@ -12,10 +13,23 @@ class ComandaItensAdmin(admin.ModelAdmin):
         form.base_fields['comanda'].queryset = ComandaItens.comanda.get_queryset().exclude(status='Paga')
         return form
 
+    def response_add(self, request, obj, post_url_continue=None):
+        return redirect('/comandas')
+
+    def response_change(self, request, obj):
+        return redirect('/comandas')
+
 class ComandaAdmin(admin.ModelAdmin):
     list_display = ("mesa", "status")
     list_filter = ('status',)
     readonly_fields = ('status', 'total')
+
+    def response_add(self, request, obj, post_url_continue=None):
+        return redirect('/comandas')
+
+    def response_change(self, request, obj):
+        return redirect('/comandas')
+
 admin.site.register(Comanda, ComandaAdmin)
 admin.site.register(Item)
 admin.site.register(ComandaItens, ComandaItensAdmin)

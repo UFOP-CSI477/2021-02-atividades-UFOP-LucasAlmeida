@@ -34,5 +34,6 @@ class ComandaPagarView(generic.DetailView):
     def get(self, request, pk):
         comanda = get_object_or_404(Comanda, pk=self.kwargs['pk'])
         comanda.pagarComanda()
-        return render(request, 'index.html')
+        print("entrou")
+        return render(request, 'comanda_paga.html')
         
