@@ -3,20 +3,56 @@
 {% block content %}
 <div class="row">
   <div class="col-md-6">
-    {% if entidades %}
+    {% if total_doacoes_dic %}
     <h5 class="display-8">Total geral de doações recebidas:</h5>
     <div class="row">
-      <div class="col-sm-6">
-        <ul>
-        {% for item in comanda_itens %}
-          <li>
-            {{item.item}} - R$({{item.item.preco}}) - # {{ item.quantidade }}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Entidade</th>
+            <th scope="col">Itens</th>
+          </tr>
+        </thead>
+        {% for item in total_doacoes_dic %}
+        <tbody>
+          <tr>
+            <td>{{item.entidade}}</td>
+            <td>{{item.quantidade_total}} </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+          <td>Total</td>
+          <td>{{total_doacoes.quantidade_total}}</td>
+        </tfoot>      
+      </table>
   {% endif %}
 </div>
 </div>
+
+  <div class="col-md-6">
+    {% if total_itens_dic %}
+    <h5 class="display-8">Total de itens recebidos:</h5>
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Porcentagem</th>
+          </tr>
+        </thead>
+        {% for item in total_itens_dic %}
+        <tbody>
+          <tr>
+            <td>{{item.item}}</td>
+            <td>{{item.quantidade_total}} </td>
+            <td>{{item.porcentagem}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  {% endif %}
+  </div>
+  
 {% endblock %}
